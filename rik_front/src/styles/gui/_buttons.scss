@@ -1,0 +1,22 @@
+@import "../utils/variables";
+
+button {
+  display: inline-block;
+  outline: 0;
+  cursor: pointer;
+  border: none;
+  padding: 0 56px;
+  height: 45px;
+  border-radius: 7px;
+  background-color: $main-blue;
+  color: $white;
+  font-weight: 500;
+  font-size: 16px;
+  box-shadow: 0 4px 14px 0 rgba($dark-blue, 0.3);
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    opacity: 0.9;
+    transition: 0.2s ease-in;
+  }
+}

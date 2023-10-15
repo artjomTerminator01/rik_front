@@ -1,0 +1,24 @@
+input {
+  font-size: 14px;
+  border-radius: 6px;
+  line-height: 1.5;
+  padding: 5px;
+  transition: box-shadow 100ms ease-in, border 100ms ease-in,
+    background-color 100ms ease-in;
+  border: 2px solid #dee1e2;
+  color: rgb(14, 14, 16);
+  background: rgba(#dee1e2, 0.6);
+  display: block;
+  height: 24px;
+  width: 100%;
+  margin: 8px 0 12px;
+
+  &:hover {
+    border-color: #ccc;
+  }
+
+  &:focus {
+    border-color: #9147ff;
+    background: #fff;
+  }
+}
