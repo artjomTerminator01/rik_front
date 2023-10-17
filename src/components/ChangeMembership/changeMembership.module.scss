@@ -1,5 +1,8 @@
+@import "../../styles/utils/variables";
+
 .member {
   display: flex;
+  align-items: center;
   gap: 16px;
 
   button {
@@ -10,4 +13,19 @@
   input {
     width: 80px;
   }
+
+  .name {
+    color: $main-blue;
+    font-weight: 600;
+  }
+}
+
+.memberWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.message {
+  color: $orange;
+  font-weight: 600;
 }

@@ -104,10 +104,12 @@ const CompanySearch = ({ handleCompanyClick, members, membersLength }) => {
                 Reg code: <span>{company.reg_code}</span>
               </p>
             </Link>
-            {handleCompanyClick && (
+            {handleCompanyClick ? (
               <button onClick={() => handleCompanyClick(company)}>
                 Add company
               </button>
+            ) : (
+              <p className={styles.capital}>{company.capital} €</p>
             )}
           </div>
         ))

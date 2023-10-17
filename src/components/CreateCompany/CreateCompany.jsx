@@ -22,8 +22,8 @@ function CreateCompany() {
 
   const [formData, setFormData] = useState({
     name: "",
-    regCode: "",
-    createdAt: formatCurrentDate(new Date()),
+    reg_code: "",
+    created_at: formatCurrentDate(new Date()),
     capital: 0,
     members: [],
   });
@@ -71,12 +71,12 @@ function CreateCompany() {
       return false;
     }
 
-    if (formData.regCode.length !== 7) {
+    if (formData.reg_code.length !== 7) {
       setMessage("Registration code should be 7 characters long");
       return false;
     }
 
-    if (formData.createdAt > formatCurrentDate(new Date())) {
+    if (formData.created_at > formatCurrentDate(new Date())) {
       setMessage("Foundation date can not be in future");
       return false;
     }
@@ -98,7 +98,7 @@ function CreateCompany() {
       try {
         await axios.post("http://127.0.0.1:8000/company", formData);
         setMessage("Company created successfully.");
-        navigate(`/company/${formData.regCode}`);
+        navigate(`/company/${formData.reg_code}`);
       } catch (error) {
         error.response.data.detail
           ? setMessage(error.response.data.detail)
@@ -170,12 +170,12 @@ function CreateCompany() {
             value={formData.name}
             onChange={handleChange}
           />
-          <label htmlFor="regCode">Registration Code:</label>
+          <label htmlFor="reg_code">Registration Code:</label>
           <input
             type="number"
-            id="regCode"
-            name="regCode"
-            value={formData.regCode}
+            id="reg_code"
+            name="reg_code"
+            value={formData.reg_code}
             onChange={handleChange}
           />
           <label htmlFor="capital">Capital:</label>
@@ -187,12 +187,12 @@ function CreateCompany() {
             value={formData.capital}
             onChange={handleChange}
           />
-          <label htmlFor="createdAt">Foundation Date:</label>
+          <label htmlFor="created_at">Foundation Date:</label>
           <input
             type="date"
-            id="createdAt"
-            name="createdAt"
-            value={formData.createdAt}
+            id="created_at"
+            name="created_at"
+            value={formData.created_at}
             onChange={handleChange}
           />
         </div>

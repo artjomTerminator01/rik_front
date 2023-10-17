@@ -82,7 +82,9 @@ const ChangeMembership = () => {
   };
 
   const updateMembersCapital = async (membershipId) => {
-    if (checkTotalCapital()) {
+    if (newCapital <= 0) {
+      setMessage("Capital must be greater than 0");
+    } else if (checkTotalCapital(membershipId)) {
       try {
         await axios.post("http://127.0.0.1:8000/company/membership/capital", {
           membership_id: membershipId,
@@ -97,12 +99,13 @@ const ChangeMembership = () => {
     }
   };
 
-  const checkTotalCapital = () => {
+  const checkTotalCapital = (membershipId) => {
     let totalCapital = parseInt(newCapital);
     company.members.forEach((member) => {
-      totalCapital += parseInt(member.capital);
+      if (member.membership_id !== membershipId) {
+        totalCapital += parseInt(member.capital);
+      }
     });
-
     if (totalCapital < 2500) {
       setMessage("Capital is less than 2500 with new capital of member");
       return false;
@@ -118,13 +121,17 @@ const ChangeMembership = () => {
           <h1>{`Handle ${company.name} membership`}</h1>
           <div className="col-12">
             {company.members.map((member, index) => (
-              <div className={styles.member} key={index}>
-                <p>{index + 1}</p>
-                <p>{member.name}</p>
-                {member.personal_code && <p>{member.personal_code}</p>}
-                {member.reg_code && <p>{member.reg_code}</p>}
-                {updatingCapital === member.id ? (
-                  <div>
+              <div className={styles.memberWrapper} key={index}>
+                <div className={styles.member}>
+                  <p>{index + 1}.</p>
+                  <p className={styles.name}>{member.name}</p>
+                  {member.personal_code && <p>{member.personal_code}</p>}
+                  {member.reg_code && <p>{member.reg_code}</p>}
+                  <p>{member.role}</p>
+                  <p>{member.is_person ? "person" : "company"}</p>
+                </div>
+                {updatingCapital === member.membership_id ? (
+                  <div className={styles.member}>
                     <input
                       type="number"
                       value={newCapital}
@@ -137,19 +144,19 @@ const ChangeMembership = () => {
                     </button>
                   </div>
                 ) : (
-                  <div className="">
+                  <div className={styles.member}>
                     <p>{member.capital} €</p>
-                    <button onClick={() => setUpdatingCapital(member.id)}>
-                      UPDATE
+                    <button
+                      onClick={() => setUpdatingCapital(member.membership_id)}
+                    >
+                      UPDATE CAPITAL
                     </button>
                   </div>
                 )}
-                <p>{member.role}</p>
-                <p>{member.is_person ? "person" : "company"}</p>
               </div>
             ))}
           </div>
-          <p>{message}</p>
+          <p className={styles.message}>{message}</p>
           <div className={classNames("row", styles.card)}>
             <h1>Add member</h1>
             <div className="col-6">
@@ -172,18 +179,17 @@ const ChangeMembership = () => {
               />
             </div>
           </div>
-
-          {showModal && (
-            <AddMemberModal
-              closeModal={() => setShowModal(false)}
-              member={member}
-              capital={capital}
-              setCapital={setCapital}
-              handleModalSubmit={handleModalSubmit}
-              modalMessage={modalMessage}
-            />
-          )}
         </div>
+      )}
+      {showModal && (
+        <AddMemberModal
+          closeModal={() => setShowModal(false)}
+          member={member}
+          capital={capital}
+          setCapital={setCapital}
+          handleModalSubmit={handleModalSubmit}
+          modalMessage={modalMessage}
+        />
       )}
     </div>
   );
