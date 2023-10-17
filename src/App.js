@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Company, CreateCompany, CreateUser, Home } from "./components";
+import { ChangeMembership, Company, CreateCompany, Home } from "./components";
 import Navbar from "./components/Navbar";
 
 const App = () => {
@@ -9,8 +9,11 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/company/:companyRegCode" element={<Company />} />
+        <Route
+          path="/company/:companyRegCode/change-membership"
+          element={<ChangeMembership />}
+        />
         <Route path="/create-company" element={<CreateCompany />} />
-        <Route path="/create-person" element={<CreateUser />} />
       </Routes>
     </>
   );

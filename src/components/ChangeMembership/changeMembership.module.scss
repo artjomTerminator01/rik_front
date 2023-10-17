@@ -1,0 +1,13 @@
+.member {
+  display: flex;
+  gap: 16px;
+
+  button {
+    height: 30px;
+    padding: 5px 10px;
+  }
+
+  input {
+    width: 80px;
+  }
+}

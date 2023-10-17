@@ -3,7 +3,11 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import styles from "./company.module.scss";
 import classNames from "classnames";
+import { useNavigate } from "react-router-dom";
+
 function Company() {
+  const navigate = useNavigate();
+
   const [company, setCompany] = useState();
 
   const { companyRegCode } = useParams();
@@ -42,12 +46,22 @@ function Company() {
             </div>
           </div>
           <div className={classNames(styles.card, "col-8")}>
-            <h2>Total of {company.members.length} members</h2>
+            <div className={styles.infoRow}>
+              <h2>Total of {company.members.length} members</h2>
+              <button
+                onClick={() =>
+                  navigate(`/company/${company.reg_code}/change-membership`)
+                }
+              >
+                Change membership
+              </button>
+            </div>
             {company.members.map((member, index) => (
               <div className={styles.member} key={index}>
                 <p>{index + 1}</p>
                 <p>{member.name}</p>
-                <p>{member.personal_code}</p>
+                {member.personal_code && <p>{member.personal_code}</p>}
+                {member.reg_code && <p>{member.reg_code}</p>}
                 <p>{member.capital} €</p>
                 <p>{member.role}</p>
                 <p>{member.is_person ? "person" : "company"}</p>

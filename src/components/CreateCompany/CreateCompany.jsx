@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import axios from "axios";
-import CompanySearch from "../CompanySearch";
+import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
+
+import CompanySearch from "../CompanySearch";
 import AddMemberModal from "../AddMemberModal";
+import PersonSearch from "../PersonSearch";
 
 import styles from "./createCompany.module.scss";
-import classNames from "classnames";
-import PersonSearch from "../PersonSearch";
 
 function CreateCompany() {
   const navigate = useNavigate();
-  const formatCurrentDate = () => {
-    const currentDate = new Date();
 
-    const year = currentDate.getFullYear();
-    const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
-    const day = currentDate.getDate().toString().padStart(2, "0");
+  const formatCurrentDate = (date) => {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
 
     return `${year}-${month}-${day}`;
   };
@@ -23,7 +23,7 @@ function CreateCompany() {
   const [formData, setFormData] = useState({
     name: "",
     regCode: "",
-    createdAt: formatCurrentDate(),
+    createdAt: formatCurrentDate(new Date()),
     capital: 0,
     members: [],
   });
@@ -35,7 +35,7 @@ function CreateCompany() {
   const [memberType, setMemberType] = useState("person");
   const [capital, setCapital] = useState(0);
   const [role, setRole] = useState("founder");
-  const [modalMessage, setModalMessage] = useState("");
+  const [modalMessage, setModalMessage] = useState();
 
   const checkCapital = () => {
     let totalMembersCapital = 0;
@@ -73,6 +73,11 @@ function CreateCompany() {
 
     if (formData.regCode.length !== 7) {
       setMessage("Registration code should be 7 characters long");
+      return false;
+    }
+
+    if (formData.createdAt > formatCurrentDate(new Date())) {
+      setMessage("Foundation date can not be in future");
       return false;
     }
 
@@ -182,6 +187,14 @@ function CreateCompany() {
             value={formData.capital}
             onChange={handleChange}
           />
+          <label htmlFor="createdAt">Foundation Date:</label>
+          <input
+            type="date"
+            id="createdAt"
+            name="createdAt"
+            value={formData.createdAt}
+            onChange={handleChange}
+          />
         </div>
         <div className="col-8">
           {formData.members.map((member, index) => (
@@ -233,6 +246,7 @@ function CreateCompany() {
           role={role}
           handleModalSubmit={handleModalSubmit}
           modalMessage={modalMessage}
+          creattingCompany={true}
         />
       )}
     </div>

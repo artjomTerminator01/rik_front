@@ -10,6 +10,7 @@ const AddMemberModal = ({
   role,
   handleModalSubmit,
   modalMessage,
+  creattingCompany,
 }) => {
   return (
     <>
@@ -26,13 +27,15 @@ const AddMemberModal = ({
             onChange={(e) => setCapital(e.target.value)}
           />
         </div>
-        <div>
-          Role:
-          <select value={role} onChange={(e) => setRole(e.target.value)}>
-            <option value="founder">Founder</option>
-            <option value="member">Member</option>
-          </select>
-        </div>
+        {creattingCompany && (
+          <div>
+            Role:
+            <select value={role} onChange={(e) => setRole(e.target.value)}>
+              <option value="founder">Founder</option>
+              <option value="member">Member</option>
+            </select>
+          </div>
+        )}
         {modalMessage && <p className={styles.message}>{modalMessage}</p>}
         <button onClick={handleModalSubmit}>Add Member</button>
       </div>
