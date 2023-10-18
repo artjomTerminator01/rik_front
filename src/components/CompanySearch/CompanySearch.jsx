@@ -116,6 +116,7 @@ const CompanySearch = ({ handleCompanyClick, members, membersLength }) => {
       ) : (
         <p>No filters selected. Please choose at least one filter.</p>
       )}
+      {companies.length === 0 && <p>No companies created</p>}
     </div>
   );
 };

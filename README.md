@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+ARVUTIL PEAVAD INSTALLITUD OLEMA:
+Python https://www.python.org/downloads/
+Node https://nodejs.org/en/download
+Postgres https://www.postgresql.org/download/
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+POSTGRES:
+Käivitage Postgres server nt pordil 5432 (default port)
+Tehke seal andmebaas nimega ‘rik’, selleks võib kasutada Postico2 https://eggerapps.at/postico2/ (ainult MAC) või kui olete windows arvutil saab kasutada DBeaver https://dbeaver.io/download/
+Saab ka terminali kasutada kirjutades:
 
-## Available Scripts
+- psql -U username
+- CREATE DATABASE rik;
 
-In the project directory, you can run:
+BACK-END:
+Kopeeri github projekt IDE-s (nt VsCode) https://github.com/artjomTerminator01/rik_back.git
 
-### `npm start`
+Failis alembic.ini 62 real on sqlalchemy.url – asetage see url enda andmebaasi urliga
+Tehke sama failis database.py 6 real kus on DATABASE_URL
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+url peab olema järgmises formaadis: postgresql://%(DB_USER)s:%(DB_PASSWORD)s@{LOCALHOST URL}/%{DB_NAME}
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+näidis salasõnata – postgresql://postgres@localhost:5432/rik
+näidis salasõnaga - postgresql://postgres:qwerty123@localhost:5432/rik
 
-### `npm test`
+Olles projekti kaustas kirjutage terminali
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Kui olete windows masinal siis peate endale looma ka Virtual environment
+  python -m venv /path/to/new/virtual/environment  
+  https://docs.python.org/3/library/venv.html
 
-### `npm run build`
+- pip install -r /path/to/requirements.txt
+  https://www.freecodecamp.org/news/python-requirementstxt-explained/#:~:text=requirements.txt%20is%20a%20file,environment%20and%20makes%20collaboration%20easier.
+- alembic upgrade head
+  https://alembic.sqlalchemy.org/en/latest/tutorial.html
+- uvicorn main:app --reload
+  https://www.uvicorn.org/
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+FRONT-END:
+Kopeeri github projekt IDE-s (nt VsCode) teises aknas
+https://github.com/artjomTerminator01/rik_front.git
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Terminal:
+1- npm install - https://docs.npmjs.com/cli/v8/commands/npm-install
+2- npm start - https://create-react-app.dev/docs/getting-started/
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+RAKENDUS:
+Andmebaasis on lisatud 3 inimest migratsiooni käigus, rakenduse testimiseks tehke firma valmis vajutades ‘CREATE COMPANY’ navbaris. Pärast firma loomist saate seda näha avalehel ka vajutades firma nimele olete navigeeritud firma vaatele. Selle vaadel on nupp ‘CHANGE MEMBERSHIP’ mis navigeerib lehele kus sate lisada vee osanike või muuta olemasolevate osanike kapitaali.
