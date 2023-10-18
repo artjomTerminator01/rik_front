@@ -7,10 +7,9 @@ import { useNavigate } from "react-router-dom";
 
 function Company() {
   const navigate = useNavigate();
+  const { companyRegCode } = useParams();
 
   const [company, setCompany] = useState();
-
-  const { companyRegCode } = useParams();
 
   useEffect(() => {
     const api = axios.create({
@@ -40,7 +39,6 @@ function Company() {
                 alt={company.name}
               />
             </div>
-
             <div className={styles.infoRow}>
               <p>Registration code:</p>
               <p>{company.reg_code}</p>
